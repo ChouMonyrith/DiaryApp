@@ -1,0 +1,36 @@
+﻿@model DiaryApp.Models.DiaryEntry
+
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <!-- Added row and centering class -->
+        <div class="col-md-8 col-lg-6">
+            <!-- Responsive column sizing -->
+            <div class="diary-entry-show">
+                <h1>@Model.Title</h1>
+
+                <div class="entry-meta">
+                    <span class="created-date">
+                        Created: @Model.Created.ToString("MMMM dd, yyyy")
+                    </span>
+                </div>
+
+                <div class="entry-content mt-4">
+                    @Model.Content
+                </div>
+
+                <div class="entry-actions mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        Edit
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

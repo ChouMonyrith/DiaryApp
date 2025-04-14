@@ -20,6 +20,16 @@ namespace DiaryApp.Controllers
             return View(diaryEntries);
         }
 
+        public IActionResult Show(int id)
+        {
+            var diaryEntries = _context.DiaryEntries.Find(id);
+            if (diaryEntries == null)
+            {
+                return NotFound();
+            }
+            return View(diaryEntries);
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -64,9 +74,9 @@ namespace DiaryApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int diaryEntryId)
+        public IActionResult Delete(int id)
         {
-            var entryToDelete = _context.DiaryEntries.Find(diaryEntryId);
+            var entryToDelete = _context.DiaryEntries.Find(id);
             if (entryToDelete != null)
             {
                 _context.DiaryEntries.Remove(entryToDelete);
